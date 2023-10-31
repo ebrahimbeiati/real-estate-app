@@ -1,6 +1,7 @@
 // sign up with 3 input and signup button
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import OAuth from "../components/OAuth";
 
 const SignUp = () => {
   const [formData, setFormData]= useState('');
@@ -44,26 +45,6 @@ const handleSignUp = (e) => {
       }
       }
 
-
-    // setLoading(true);
-    // const res = await fetch('/api/auth/signup',{
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(formData),
-    //   });
-      
-    //   const data = await res.json();
-    //   if(data.success === false){ 
-    //      setLoading(false);
-    //      setError(data.message);
-    //      return;
-    //   }
-    //   setLoading(false);
-    //   setError(null);
-     
-    //   };
       console.log(formData);
   return (
     <div className=" p-4 max-w-lg max-auto  ">
@@ -101,6 +82,7 @@ const handleSignUp = (e) => {
           className="bg-indigo-500 hover:bg-indigo-600 text-white p-3 rounded-lg font-semibold tracking-wide uppercase shadow-md cursor-pointer disabled:opacity-60 transition duration-200 ease-in-out focus:" type="submit" >
         {loading ? "Loading..." : "Sign Up"}
         </button>
+        <OAuth/>
       </form>
       <div>
         <Link to="/sign-in">
