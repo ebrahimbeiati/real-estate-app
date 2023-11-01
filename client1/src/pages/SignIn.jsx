@@ -48,8 +48,8 @@ const SignIn = () => {
 
   console.log(formData);
   return (
-    <div className=" p-4 max-w-lg max-auto   ">
-      <h1 className="font-bold text-3xl sm:xl text-center items-center justify-center my-6">
+    <div className=" p-4 max-w-lg mx-auto   ">
+      <h1 className="font-bold text-4xl sm:xl text-center  my-6">
         Sign In
       </h1>
       <form className="flex flex-col gap-3  justify-center" onSubmit={handleSubmit}>

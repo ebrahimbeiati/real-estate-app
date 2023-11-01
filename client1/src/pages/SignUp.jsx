@@ -47,7 +47,7 @@ const handleSignUp = (e) => {
 
       console.log(formData);
   return (
-    <div className=" p-4 max-w-lg max-auto  ">
+    <div className=" p-4 max-w-lg mx-auto  ">
       <h1 className="font-bold text-3xl sm:xl text-center items-center justify-center my-6">
         Sign Up
       </h1>
