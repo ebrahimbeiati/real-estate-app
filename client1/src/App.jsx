@@ -5,13 +5,16 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import About from "./pages/About";
 import Header from "./components/Header";
+import PrivateRoute from "./components/PrivateRoute";
 const App = () => {
   return (
 <BrowserRouter>
 <Header/>
 <Routes>
   <Route path="/" element={<Home/>}/>
+  <Route element={<PrivateRoute/>}>
   <Route path="/profile" element={<Profile/>}/>
+  </Route>
   <Route path="/sign-up" element={<SignUp/>}/>
   <Route path="/sign-in" element={<SignIn/>}/>
   <Route path="/about" element={<About/>}/>

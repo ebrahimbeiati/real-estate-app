@@ -1,7 +1,9 @@
 import { useState } from "react";
 import {Link} from "react-router-dom"
+import {useSelector} from "react-redux"
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const {currentUser} = useSelector((state)=>state.user)
 
   return (
     <header className="bg-slate-300 shadow-md">
@@ -33,18 +35,21 @@ const Header = () => {
         </form>
         {/* Desktop Menu */}
         <ul className="hidden sm:flex gap-4 text-slate-600 hover:underline">
-        <Link
-          to="/">
-                <li>Home</li>
-        </Link>
-          <Link
-            to="/about">
+          <Link to="/">
+            <li>Home</li>
+          </Link>
+          <Link to="/about">
             <li>About</li>
           </Link>
-            <Link
-                to="/signin">
-                <li>Sign in</li>
-            </Link>
+          <Link to="/profile">
+            {currentUser ? (
+              <img className="
+              w-8 h-8 rounded-full object-cover
+              " src={currentUser.avatar} alt="profile" />
+            ) : (
+              <li className="hover:underline">Sign in</li>
+            )}
+          </Link>
         </ul>
         {/* Mobile Hamburger Menu */}
         <div className="sm:hidden">
@@ -53,17 +58,18 @@ const Header = () => {
           </button>
           {menuOpen && (
             <ul className="flex flex-col gap-4 bg-slate-300 absolute top-16 right-4 p-4 rounded-lg">
-              <Link
-                to="/">
+              <Link to="/">
                 <li>Home</li>
               </Link>
-              <Link
-                to="/about">
+              <Link to="/about">
                 <li>About</li>
               </Link>
-              <Link
-                to="/signin">
-                <li>Sign in</li>
+              <Link to="/signin">
+                {currentUser ? (
+                  <img src={currentUser.avatar} alt="profile" />
+                ) : (
+                  <li className="hover:underline">Sign in</li>
+                )}
               </Link>
             </ul>
           )}
