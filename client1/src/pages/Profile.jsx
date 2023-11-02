@@ -58,29 +58,29 @@ export default function Profile() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-    const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(updateUserFailure(data.message));
-        return;
-      }
-      dispatch(updateUserSuccess(data));
-      setUpdateSuccess(true);
-    } catch (err) {
-      dispatch( updateUserFailure(err.message));
-     
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    dispatch(updateUserStart());
+    const res = await fetch("/api/user/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    if (data.success === false) {
+      dispatch(updateUserFailure(data.message));
+      return;
     }
-  };
+    dispatch(updateUserSuccess(data)); 
+  } catch (err) {
+    dispatch(updateUserFailure(err.message));
+  }
+};
+
+console.log(formData);
 
     return (
       <div className="p-4 max-w-lg mx-auto">
