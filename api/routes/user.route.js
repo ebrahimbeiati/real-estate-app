@@ -1,10 +1,9 @@
 import express from "express";
-
+import jwt from "jsonwebtoken";
+import { verifyToken } from "../utils/verifyUser.js"; 
+import { updateUser } from "../controller/user.controller.js";
 
 const router = express.Router();
-router.get("/", (req, res) => {
-    res.send("Hello World!22");
-
-});
+router.post("/update/:id",verifyToken, updateUser);
 
 export default router;
