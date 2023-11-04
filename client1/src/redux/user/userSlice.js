@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   currentUser: null,
+  id:null,
   error: null,
   loading: false,
-  success: false,
 };
 
 const userSlice = createSlice({
@@ -25,9 +25,6 @@ const userSlice = createSlice({
     },
     updateUserStart: (state) => {
       state.loading = true;
-      state.error = null;
-      state.success = false;
-
     },
     updateUserSuccess: (state, action) => {
       state.currentUser = action.payload;
@@ -37,9 +34,6 @@ const userSlice = createSlice({
     updateUserFailure: (state, action) => {
       state.error = action.payload;
       state.loading = false;
-      state.success = false;
-
-
     },
     deleteUserStart: (state) => {
       state.loading = true;
