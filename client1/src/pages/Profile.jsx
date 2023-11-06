@@ -16,6 +16,7 @@ import {
 } from "../redux/user/userSlice.js";
 import { useDispatch } from 'react-redux';
 import { app } from '../firebase.js';
+import { Link } from 'react-router-dom';
 
 
 
@@ -130,12 +131,6 @@ export default function Profile() {
       dispatch(signOutUserFailure(err.message));
     }
   }
-    
-  
-  
-
-
-
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-6">Profile</h1>
@@ -147,7 +142,6 @@ export default function Profile() {
           hidden
           ref={fileRef}
         />
-
         <img
           onClick={() => fileRef.current.click()}
           className="rounded-full h-21 w-21 object-cover cursor-pointer self-center  mt-2"
@@ -164,8 +158,7 @@ export default function Profile() {
             <span className="text-green-500">Uploaded successfully</span>
           ) : (
             ""
-          )
-          }
+          )}
         </p>
         <input
           type="text"
@@ -190,20 +183,35 @@ export default function Profile() {
           className="border p-4 rounded-lg "
           onChange={handleChange}
         />
-        <button disabled={loading} className="bg-slate-500 p-3 text-white rounded-lg disabled:opacity-80 hover:opacity-90 ">
-          { loading ? 'Loading...' : 'Update'
-         }
+        <button
+          disabled={loading}
+          className="bg-slate-500 p-3 text-white rounded-lg disabled:opacity-80 hover:opacity-90 "
+        >
+          {loading ? "Loading..." : "Update"}
         </button>
+          <Link
+            to="/create-listing"
+            className="bg-blue-500 p-3 text-white text-center rounded-lg disabled:opacity-80 hover:opacity-90 uppercase"
+          >
+            Create Listing
+          </Link>
+       
       </form>
       <div className="flex justify-between mt-4">
-        <span onClick={handleDelete} className="text-red-500 cursor-pointer">Delete account</span>
-        <span onClick={handleSignOut} className="text-red-500 cursor-pointer">Sign out</span>
+        <span onClick={handleDelete} className="text-red-500 cursor-pointer">
+          Delete account
+        </span>
+        <span onClick={handleSignOut} className="text-red-500 cursor-pointer">
+          Sign out
+        </span>
       </div>
       <p>
-        <span className="text-red-500 mt-4">{error? error : ''}</span>
+        <span className="text-red-500 mt-4">{error ? error : ""}</span>
       </p>
       <p>
-        <span className="text-green-500 mt-4">{updateSuccess ? 'Profile updated successfully' : ''}</span>
+        <span className="text-green-500 mt-4">
+          {updateSuccess ? "Profile updated successfully" : ""}
+        </span>
       </p>
     </div>
   );
