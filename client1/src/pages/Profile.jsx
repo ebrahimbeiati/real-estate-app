@@ -190,9 +190,8 @@ export default function Profile() {
           {loading ? "Loading..." : "Update"}
         </button>
           <Link
-            to="/create-listing"
-            className="bg-blue-500 p-3 text-white text-center rounded-lg disabled:opacity-80 hover:opacity-90 uppercase"
-          >
+            to={"/create-listing"}
+            className="bg-blue-500 p-3 text-white text-center rounded-lg disabled:opacity-80 hover:opacity-90 uppercase" >
             Create Listing
           </Link>
        
