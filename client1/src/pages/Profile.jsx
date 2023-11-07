@@ -261,33 +261,37 @@ export default function Profile() {
         </span>
       </p>
       {userListings && userListings.length > 0 && (
-  <div className='flex flex-col gap-3'>
-    <h1 className="text-2xl font-semibold text-center mt-6">Listings</h1>
-    {userListings.map((listing) => (
-      <div
-        key={listing._id}
-        className="border rounded-lg p-3 justify-between items-center gap-3 flex"
-      >
-        <Link to={`/listing/${listing._id}`}>
-          <img
-            src={listing.imageUrls[0]}
-            alt="listing cover"
-            className="flex-1 font-semibold text-gray-600 hover:underline truncate rounded-lg w-16 h-16 object-contain"
-          />
-        </Link>
-        <Link to={`/listing/${listing._id}`}>
-          <p>{listing.title}</p>
-        </Link>
-        <div className='flex flex-col'>
-          <button
-            onClick={() => handleDeleteListing(listing._id)}
-            className="text-red-700 uppercase">Delete</button>
-          <button className="text-green-700 uppercase">Edit</button>
-        </div>
-      </div>
-
-    ))
-          }
-          </div>)}
+        <div className="flex flex-col gap-3">
+          <h1 className="text-2xl font-semibold text-center mt-6">Listings</h1>
+          {userListings.map((listing) => (
+            <div
+              key={listing._id}
+              className="border rounded-lg p-3 justify-between items-center gap-3 flex"
+            >
+              <Link to={`/listing/${listing._id}`}>
+                <img
+                  src={listing.imageUrls[0]}
+                  alt="listing cover"
+                  className="flex-1 font-semibold text-gray-600 hover:underline truncate rounded-lg w-16 h-16 object-contain"
+                />
+              </Link>
+              <Link to={`/listing/${listing._id}`}>
+                <p>{listing.title}</p>
+              </Link>
+              <div className="flex flex-col">
+                <button
+                  onClick={() => handleDeleteListing(listing._id)}
+                  className="text-red-700 uppercase"
+                >
+                  Delete
+                </button>
+                <Link to={`/update-listing/${listing._id}`}>
+                  <button className="text-green-700 uppercase">Edit</button>
+                </Link>
+              </div>
+            </div>
+          ))}
         </div>
       )}
+    </div>
+  );}
