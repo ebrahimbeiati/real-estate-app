@@ -166,8 +166,6 @@ export default function Profile() {
       setUerListings((prevState) => prevState.filter((item) => item._id !== id)) ;
     } catch (err) {
       console.log(err.message)
-  
- 
     }
   };
   return (
