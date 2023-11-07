@@ -28,8 +28,9 @@ export default function Profile() {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [showListingError, setShowListingError] = useState(false);
+  const [userListings, setUerListings] = useState([]);
   const dispatch = useDispatch();
-
   
   
 
@@ -131,6 +132,22 @@ export default function Profile() {
       dispatch(signOutUserFailure(err.message));
     }
   }
+  const handleShowListing = async () => {
+    try {
+      setShowListingError(false);
+      const res = await fetch(`/api/user/listings/${currentUser._id}`);
+      const data = await res.json();
+     
+      if (data.success === false) {
+        setShowListingError(true);
+        return;
+      }
+      setUerListings(data);
+    } catch (err) {
+      setShowListingError(true);
+ 
+    }
+  };
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-6">Profile</h1>
@@ -189,12 +206,12 @@ export default function Profile() {
         >
           {loading ? "Loading..." : "Update"}
         </button>
-          <Link
-            to={"/create-listing"}
-            className="bg-blue-500 p-3 text-white text-center rounded-lg disabled:opacity-80 hover:opacity-90 uppercase" >
-            Create Listing
-          </Link>
-       
+        <Link
+          to={"/create-listing"}
+          className="bg-blue-500 p-3 text-white text-center rounded-lg disabled:opacity-80 hover:opacity-90 uppercase"
+        >
+          Create Listing
+        </Link>
       </form>
       <div className="flex justify-between mt-4">
         <span onClick={handleDelete} className="text-red-500 cursor-pointer">
@@ -212,8 +229,43 @@ export default function Profile() {
           {updateSuccess ? "Profile updated successfully" : ""}
         </span>
       </p>
-    </div>
-  );
-}
+      <button
+        onClick={handleShowListing}
+        className="text-green-600 items-center w-full"
+      >
+        Show listing
+      </button>
+      <p>
+        <span className="text-red-500 mt-4">
+          {showListingError ? showListingError : ""}
+        </span>
+      </p>
+      {userListings && userListings.length > 0 && (
+  <div className='flex flex-col gap-3'>
+    <h1 className="text-2xl font-semibold text-center mt-6">Listings</h1>
+    {userListings.map((listing) => (
+      <div
+        key={listing._id}
+        className="border rounded-lg p-3 justify-between items-center gap-3 flex"
+      >
+        <Link to={`/listing/${listing._id}`}>
+          <img
+            src={listing.imageUrls[0]}
+            alt="listing cover"
+            className="flex-1 font-semibold text-gray-600 hover:underline truncate rounded-lg w-16 h-16 object-contain"
+          />
+        </Link>
+        <Link to={`/listing/${listing._id}`}>
+          <p>{listing.title}</p>
+        </Link>
+        <div className='flex flex-col'>
+          <button className="text-red-700 uppercase">Delete</button>
+          <button className="text-green-700 uppercase">Edit</button>
+        </div>
+      </div>
 
-
+    ))
+          }
+          </div>)}
+        </div>
+      )}
