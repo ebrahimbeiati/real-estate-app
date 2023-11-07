@@ -50,34 +50,6 @@ const UpdateListing = () => {
     fetchListing();
   }, []);
 
-//   const handleSubmit = (e) => {
-//     if (files.length > 0 && files.length + formData.imageUrls < 8) {
-//       setUploading(true);
-//       e.preventDefault();
-//       setImageUploadError(false);
-//       const promises = [];
-//       for (let i = 0; i < files.length; i++) {
-//         promises.push(storageImage(files[i]));
-//       }
-//       Promise.all(promises)
-//         .then((urls) => {
-//           setFormData({
-//             ...formData,
-//             imageUrls: formData.imageUrls.concat(urls),
-//           });
-//           setImageUploadError(false);
-//           setUploading(false);
-//         })
-//         .catch((err) => {
-//           setImageUploadError("Image upload failed");
-//           setUploading(false);
-//           console.log(err);
-//         });
-//     } else {
-//       setImageUploadError("You can upload only 7 images per list");
-//       setUploading(false);
-//     }
-    //   };
       const handleSubmit = (e) => {
         if (files.length > 0 && files.length + formData.imageUrls.length < 8) {
           setUploading(true);
