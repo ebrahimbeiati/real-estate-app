@@ -133,11 +133,11 @@ export default function Listing() {
               </li>
               <li className="flex items-center gap-1 whitespace-nowrap ">
                 <FaParking className="text-lg" />
-                {listing.parking ? "Parking spot" : "No Parking"}
+                {listing.parking ? "parking spot" : "No parking"}
               </li>
               <li className="flex items-center gap-1 whitespace-nowrap ">
                 <FaChair className="text-lg" />
-                {listing.furnished ? "Furnished" : "Unfurnished"}
+                {listing.furnished ? "furnished" : "Unfurnished"}
               </li>
             </ul>
             {currentUser && listing.userRef !== currentUser._id && !contact && (
