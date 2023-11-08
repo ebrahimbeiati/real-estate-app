@@ -1,9 +1,28 @@
-import { useState } from "react";
-import {Link} from "react-router-dom"
+import { useState, useEffect } from "react";
+import {Link, useNavigate} from "react-router-dom"
 import {useSelector} from "react-redux"
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const {currentUser} = useSelector((state)=>state.user)
+  const { currentUser } = useSelector((state) => state.user);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+  
+ 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('searchTerm', searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
 
   return (
     <header className="bg-slate-300 shadow-md">
@@ -15,15 +34,17 @@ const Header = () => {
           </h1>
         </Link>
         {/* Search Bar */}
-        <form className=" sm:flex flex-wrap items-center justify-center">
+        <form onSubmit={handleSubmit} className=" sm:flex flex-wrap items-center justify-center">
           <label htmlFor="search" className="sr-only">
             Search
           </label>
           <input
-            type="search"
+            type="text"
             id="search"
             name="search"
             placeholder="Search properties..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="w-24 sm:w-64 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
           />
           <button
