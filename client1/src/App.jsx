@@ -10,6 +10,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import UpdateListing from "./pages/UpdateListing";
 import Listing from "./pages/Listing";
 import Contact from "./components/Contact";
+import Search from "./pages/Search";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/listing/:listingId" element={<Listing />} />
         <Route path="/contact/:landlordId" element={<Contact />} />
+        <Route path="/search" element={<Search />} />
 
       </Routes>
     </BrowserRouter>
