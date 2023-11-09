@@ -228,7 +228,7 @@ const UpdateListing = () => {
             <div className="flex gap-2">
               <input
                 type="checkbox"
-                id="Rent"
+                id="rent"
                 className="w-5"
                 onChange={handleChange}
                 checked={formData.type === "rent"}
@@ -383,7 +383,7 @@ const UpdateListing = () => {
             disabled={loading || uploading}
             className="bg-blue-500 p-3 mt-4 text-white text-center rounded-lg disabled:opacity-80 hover:opacity-90 uppercase"
           >
-            {loading ? "Creating..." : "Update Listing"}
+            {loading ? "Updating..." : "Update Listing"}
           </button>
           {error && <p className="text-red-500 text-center">{error}</p>}
         </div>
