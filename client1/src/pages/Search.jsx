@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import ListingItem from "../components/ListingItem";
 const Search = () => {
     const navigate = useNavigate();
@@ -14,7 +14,8 @@ const [sidebardata, setSidebardata] = useState({
 });
 
     const [loading, setLoading] = useState(false);
-    const [listings, setListings] = useState([]);
+  const [listings, setListings] = useState([]);
+  const [showMore, setShowMore] = useState(false);
 
    
 useEffect(() => {
@@ -46,10 +47,18 @@ useEffect(() => {
     });
   }
   const fetchListings = async () => {
+    setShowMore(false);
     setLoading(true);
     const searchQuery = urlParams.toString();
     const res = await fetch(`/api/listing/get?${searchQuery}`);
     const data = await res.json();
+    if (data.length > 8) {
+       setShowMore(true);
+    }
+    else{
+        setShowMore(false);
+    }
+   
     setListings(data);
     setLoading(false);
   };
@@ -88,6 +97,21 @@ useEffect(() => {
         const searchQuery = urlParams.toString();
         navigate(`/search?${searchQuery}`);
     }
+  const onShowMoreClick = async () => {
+    const numberOfListings = listings.length;
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set('startIndex', startIndex);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/listing/get?${searchQuery}`);
+    const data = await res.json();
+    if (data.length < 9) {
+      setShowMore(false);
+    }
+    setListings([...listings, ...data]);
+
+  };
+  
    
 
   return (
@@ -164,18 +188,24 @@ useEffect(() => {
               <span>Parking</span>
             </div>
             <div className="flex gap-2">
-                          <input type="checkbox" id="furnished" className=" w-5 "
-              onChange={handleChange} 
-                               checked={sidebardata.furnished}/>
+              <input
+                type="checkbox"
+                id="furnished"
+                className=" w-5 "
+                onChange={handleChange}
+                checked={sidebardata.furnished}
+              />
               <span> Furnished</span>
             </div>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
             <label className="font-semibold">Sort:</label>
-                      <select
-                          onChange={handleChange}
-                          defaultValue={'created_at_desc'}
-                          className="border rounded-lg p-3" id="sort_order">
+            <select
+              onChange={handleChange}
+              defaultValue={"created_at_desc"}
+              className="border rounded-lg p-3"
+              id="sort_order"
+            >
               <option value="regularPrice_asc">Price: Low to High</option>
               <option value="regularPrice_desc">Price: High to Low</option>
               <option value="createdAt_desc">Newest</option>
@@ -190,22 +220,31 @@ useEffect(() => {
       <div className="flex-1">
         <h1 className="text-3xl font-semibold border-b p-3 text-slate-700 mt-5">
           Listing results:
-              </h1>
-              <div className="flex flex-wrap gap-3 ">
-                  {!loading && listings.length === 0 && (
-                      <p className="text-xl text-slate-400">No listing found</p>)}
-                  {loading && (
-                      <p className="text-xl text-slate-400">Loading...</p>
-                  )}
-
-                  {
-                      !loading && listings && listings.map((listing) => 
-                      <ListingItem
-                          key={listing._id}
-                          listing={listing}
-                          id={listing.id}/>
-                      )}
-            </div>
+        </h1>
+        <div className="flex flex-wrap gap-3 ">
+          {!loading && listings.length === 0 && (
+            <p className="text-xl text-slate-400">No listing found</p>
+          )}
+          {loading && <p className="text-xl text-slate-400">Loading...</p>}
+          {!loading &&
+            listings &&
+            listings.map((listing) => (
+              <ListingItem
+                key={listing._id}
+                listing={listing}
+                id={listing.id}
+              />
+            ))}
+          {showMore && (
+            <button
+              onClick={onShowMoreClick}
+              className="bg-slate-600 p-7 uppercase rounded-lg text-white font-semibold hover:underline"
+            >
+              Show more
+            </button>
+          )}
+          
+        </div>
       </div>
     </div>
   );
