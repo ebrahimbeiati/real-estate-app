@@ -238,7 +238,7 @@ useEffect(() => {
           {showMore && (
             <button
               onClick={onShowMoreClick}
-              className="bg-slate-600 p-7 uppercase rounded-lg text-white font-semibold hover:underline"
+              className="bg-slate-600 p-3 uppercase rounded-lg text-white font-semibold hover:underline"
             >
               Show more
             </button>

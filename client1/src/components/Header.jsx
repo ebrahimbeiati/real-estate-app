@@ -85,9 +85,9 @@ const Header = () => {
               <Link to="/about">
                 <li>About</li>
               </Link>
-              <Link to="/signin">
+              <Link to="/profile">
                 {currentUser ? (
-                  <img src={currentUser.avatar} alt="profile" />
+                  <img className="w-10 h-10 rounded-full items-center justify-center flex" src={currentUser.avatar} alt="profile" />
                 ) : (
                   <li className="hover:underline">Sign in</li>
                 )}

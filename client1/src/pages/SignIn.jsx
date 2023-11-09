@@ -1,4 +1,4 @@
-// sign up with 3 input and signup button
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
