@@ -87,12 +87,12 @@ app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
 
 // Serve static files from the `/client1/dist` directory
-// app.use(express.static(path.join(__dirname, "/client1/dist")));
+app.use(express.static(path.join(__dirname, "/client1/dist")));
 
 // Serve the `index.html` file for all other requests
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "client1", "dist", "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client1", "dist", "index.html"));
+});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
