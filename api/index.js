@@ -87,10 +87,11 @@ app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
 
 // Serve static files from the `/client1/dist` directory
-app.use(express.static(path.join(__dirname, "client1","dist")));
+app.use(express.static(path.join(__dirname, "dist")));
 
+// Route all other requests to the 'index.html' file
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client1", "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 
