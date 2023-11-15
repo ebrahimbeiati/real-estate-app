@@ -60,8 +60,7 @@ import listingRouter from "./routes/listing.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 dotenv.config();
-import { fileURLToPath } from "url";
-import { dirname } from "path";
+
 mongoose
   .connect(process.env.MONGO)
   .then(() => {
@@ -71,10 +70,7 @@ mongoose
     console.log(err);
   });
 
-
-
-// Get the directory name of the current module's filename
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = path.resolve();
 
 const app = express();
 
@@ -91,11 +87,10 @@ app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
 
 // Serve static files from the `/client1/dist` directory
-app.use(express.static(path.join(__dirname, "dist")));
+app.use(express.static(path.join(__dirname, "client1","dist")));
 
-// Route all other requests to the 'index.html' file
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "client1", "dist", "index.html"));
 });
 
 
