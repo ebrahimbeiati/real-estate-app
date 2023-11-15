@@ -60,7 +60,8 @@ import listingRouter from "./routes/listing.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 dotenv.config();
-
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 mongoose
   .connect(process.env.MONGO)
   .then(() => {
@@ -70,7 +71,10 @@ mongoose
     console.log(err);
   });
 
-const __dirname = path.resolve();
+
+
+// Get the directory name of the current module's filename
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
