@@ -59,7 +59,6 @@ import authRouter from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 import listingRouter from "./routes/listing.route.js";
-
 dotenv.config();
 
 mongoose
