@@ -1,4 +1,5 @@
 # React + Vite
+# npm run dev
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -36,7 +37,7 @@ To install the app, clone the repository and run the following commands:
 
 npm install
 npm run dev
-This will start the development server on port 3000. You can access the app at http://localhost:3000 in your web browser.
+This will start the development server on port 4000. You can access the app at http://localhost:4000 in your web browser.
 
 Usage
 
