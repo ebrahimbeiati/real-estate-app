@@ -34,7 +34,6 @@
 // app.use("/api/auth", authRouter);
 // app.use('/api/listing', listingRouter);
 
-<<<<<<< HEAD
 // app.use(express.static(path.join(__dirname, "client/dist")));
 
 // app.get('*', (req, res) => {
@@ -42,14 +41,12 @@
 // })
 
 
-=======
 // app.use(express.static(path.join(__dirname, "client1/dist")));
 
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname, "client1", "dist", "index.html"));
 // })
 
->>>>>>> origin/master
 // app.use((err, req, res, next) => {
 //   const statusCode = err.statusCode || 500;
 //   const message = err.message || "Internal Server Error";
@@ -60,10 +57,6 @@
 //   });
 // });
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -87,10 +80,7 @@ mongoose
   });
 
 const __dirname = path.resolve();
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 const app = express();
 
 app.use(express.json());
@@ -102,11 +92,6 @@ app.use(express.static(path.join(__dirname, "client1/dist")));
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
-<<<<<<< HEAD
-
-app.use(express.static(path.join(__dirname, "/client/dist")));
-=======
->>>>>>> origin/master
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client1", "dist", "index.html"));
