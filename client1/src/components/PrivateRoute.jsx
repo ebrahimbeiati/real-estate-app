@@ -7,7 +7,6 @@ const PrivateRoute = ({element}) => {
   return (
     <div>
       {currentUser ? element : <SignIn/>}
-      
     </div>
   )
 }
