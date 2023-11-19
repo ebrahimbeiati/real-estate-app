@@ -23,14 +23,12 @@ const App = () => {
           path="/profile"
           element={<PrivateRoute element={<Profile />} />}
         />
-        <Route
-          path="/create-listing"
-          element={<PrivateRoute element={<CreateListing />} />}
-        />
+
         <Route
           path="/update-listing/:listingId"
           element={<PrivateRoute element={<UpdateListing />} />}
         />
+        <Route path="/create-listing" element={<CreateListing />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/about" element={<About />} />
