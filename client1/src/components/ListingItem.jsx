@@ -1,9 +1,27 @@
 import { Link } from "react-router-dom"
-import {MdLocationOn} from 'react-icons/md'
+import { MdLocationOn } from 'react-icons/md'
+import PropTypes from "prop-types";
 
 
 
-const ListingItem = ({listing}) => {
+
+const ListingItem = ({ listing }) => {
+  ListingItem.propTypes = {
+    listing: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
+      title: PropTypes.string.isRequired,
+      address: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      offer: PropTypes.bool.isRequired,
+      discountedPrice: PropTypes.number.isRequired,
+      regularPrice: PropTypes.number.isRequired,
+      type: PropTypes.oneOf(["rent", "sale"]).isRequired,
+      bedrooms: PropTypes.number.isRequired,
+      bathrooms: PropTypes.number.isRequired,
+      // Add more properties if needed based on the actual structure of your 'listing' object
+    }).isRequired,
+  };
   return (
     <div className="bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden w-full sm:w-[330px] rounded-lg">
       <Link to={`/listing/${listing._id}`}>
