@@ -4,8 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import SwiperCore from "swiper";
 import "swiper/css/bundle";
-import ListingItem from '../components/ListingItem'
-
+import ListingItem from "../components/ListingItem";
+import { getListingImages } from "../utils/listingImages";
 
 const Home = () => {
   const [offerListings, setOfferListings] = useState([]);
@@ -70,7 +70,7 @@ const Home = () => {
           Get Started...
         </Link>
       </div>
-      <Swiper navigation>
+      {/* <Swiper navigation>
         {offerListings &&
           offerListings.length > 0 &&
           offerListings.map((listing) => (
@@ -81,64 +81,91 @@ const Home = () => {
                   backgroundSize: "cover",
                 }}
                 className="h-[500px]"
-             
               ></div>
             </SwiperSlide>
           ))}
+      </Swiper> */}
+
+      <Swiper navigation>
+        {offerListings.map((listing) => {
+          const imageUrl = getListingImages(listing)[0];
+
+          return (
+            <SwiperSlide key={listing._id}>
+              <Link to={`/listing/${listing._id}`}>
+                <img
+                  src={imageUrl}
+                  alt={listing.title}
+                  className="w-full h-[500px] object-cover"
+                />
+              </Link>
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
+
       <div>
         <div className="max-w-6xl mx-auto p-3 flex flex-col gap-8 my-9">
           {offerListings && offerListings.length > 0 && (
-              <div>
-                <div className="my-3">
-                  <h1 className="text-slate-600 font-bold text-2xl lg:text-4xl">
-                    New Offers
-                  </h1>
-                  <Link className="text-sm text-blue-500 hover:underline" to={'/search?offer=true'}>
-                    View All
-                  </Link>
-                </div>
-                <div className="flex flex-wrap gap-4">
-                  {offerListings.map((listing) => (
-                    <ListingItem listing={listing} key={listing._id} />
-                  ))}
-                </div>
+            <div>
+              <div className="my-3">
+                <h1 className="text-slate-600 font-bold text-2xl lg:text-4xl">
+                  New Offers
+                </h1>
+                <Link
+                  className="text-sm text-blue-500 hover:underline"
+                  to={"/search?offer=true"}
+                >
+                  View All
+                </Link>
               </div>
-            )}
+              <div className="flex flex-wrap gap-4">
+                {offerListings.map((listing) => (
+                  <ListingItem listing={listing} key={listing._id} />
+                ))}
+              </div>
+            </div>
+          )}
           {sellListings && sellListings.length > 0 && (
-              <div>
-                <div className="my-3">
-                  <h1 className="text-slate-600 font-bold text-2xl lg:text-4xl">
-                    New properties for Sell
-                  </h1>
-                  <Link className="text-sm text-blue-500 hover:underline" to={'/search?type=sell'}>
-                    View All
-                  </Link>
-                </div>
-                <div className="flex flex-wrap gap-4">
-                  {sellListings.map((listing) => (
-                    <ListingItem listing={listing} key={listing._id} />
-                  ))}
-                </div>
+            <div>
+              <div className="my-3">
+                <h1 className="text-slate-600 font-bold text-2xl lg:text-4xl">
+                  New properties for Sell
+                </h1>
+                <Link
+                  className="text-sm text-blue-500 hover:underline"
+                  to={"/search?type=sell"}
+                >
+                  View All
+                </Link>
               </div>
-            )}
+              <div className="flex flex-wrap gap-4">
+                {sellListings.map((listing) => (
+                  <ListingItem listing={listing} key={listing._id} />
+                ))}
+              </div>
+            </div>
+          )}
           {rentListings && rentListings.length > 0 && (
-              <div>
-                <div className="my-3">
-                  <h1 className="text-slate-600 font-bold text-2xl lg:text-4xl">
-                    New properties for rent
-                  </h1>
-                  <Link className="text-sm text-blue-500 hover:underline" to={'/search?type=rent'}>
-                    View All
-                  </Link>
-                </div>
-                <div className="flex flex-wrap gap-4">
-                  {rentListings.map((listing) => (
-                    <ListingItem listing={listing} key={listing._id} />
-                  ))}
-                </div>
+            <div>
+              <div className="my-3">
+                <h1 className="text-slate-600 font-bold text-2xl lg:text-4xl">
+                  New properties for rent
+                </h1>
+                <Link
+                  className="text-sm text-blue-500 hover:underline"
+                  to={"/search?type=rent"}
+                >
+                  View All
+                </Link>
               </div>
-            )}
+              <div className="flex flex-wrap gap-4">
+                {rentListings.map((listing) => (
+                  <ListingItem listing={listing} key={listing._id} />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

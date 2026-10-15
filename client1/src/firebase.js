@@ -1,6 +1,3 @@
-
-
-
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -8,7 +5,7 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  apiKey: "AIzaSyDssGRvGjvfqmMwHwJHtQBq2GlceoCEo34",
   authDomain: "real-estate-app-7da91.firebaseapp.com",
   projectId: "real-estate-app-7da91",
   storageBucket: "real-estate-app-7da91.appspot.com",

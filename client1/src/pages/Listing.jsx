@@ -14,8 +14,7 @@ import {
   FaShare,
 } from "react-icons/fa";
 import Contact from "../components/Contact";
-
-
+import { getListingImages } from "../utils/listingImages";
 export default function Listing() {
   SwiperCore.use([Navigation]);
   const [listing, setListing] = useState(null);
@@ -56,19 +55,38 @@ export default function Listing() {
       )}
       {listing && !loading && !error && (
         <div>
-          <Swiper navigation>
+          {/* <Swiper navigation>
             {listing.imageUrls.map((url) => (
               <SwiperSlide key={url}>
                 <div
                   className="h-[550px]"
                   style={{
-                    background: `url(${url}) center no-repeat`,
+                    backgroundImage: `url("${getImageUrl(url)}")`,
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
                   }}
-                ></div>
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper> */}
+
+          <Swiper navigation>
+            {getListingImages(listing).map((url, index) => (
+              <SwiperSlide key={`${url}-${index}`}>
+                <img
+                  src={url}
+                  alt={`${listing.title} - image ${index + 1}`}
+                  className="w-full h-[550px] object-cover"
+                  onError={(event) => {
+                    event.currentTarget.onerror = null;
+                    event.currentTarget.src = "/house1.avif";
+                  }}
+                />
               </SwiperSlide>
             ))}
           </Swiper>
+
           <div className="fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer">
             <FaShare
               className="text-slate-500"

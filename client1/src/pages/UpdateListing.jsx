@@ -50,33 +50,62 @@ const UpdateListing = () => {
     fetchListing();
   }, []);
 
-      const handleSubmit = (e) => {
-        if (files.length > 0 && files.length + formData.imageUrls.length < 8) {
-          setUploading(true);
-          setImageUploadError(false);
-          const promises = [];
+  // Handle form submission
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (files.length > 0 && files.length + formData.imageUrls.length <= 7) {
+  //     setUploading(true);
+  //     setImageUploadError(false);
 
-          for (let i = 0; i < files.length; i++) {
-            promises.push(storageImage(files[i]));
-          }
-          Promise.all(promises)
-            .then((urls) => {
-              setFormData({
-                ...formData,
-                imageUrls: formData.imageUrls.concat(urls),
-              });
-              setImageUploadError(false);
-              setUploading(false);
-            })
-            .catch((err) => {
-              setImageUploadError("Image upload failed (2 mb max per image)");
-              setUploading(false);
-            });
-        } else {
-          setImageUploadError("You can only upload 6 images per listing");
+  //     const promises = Array.from(files).map((file) => storageImage(file));
+
+  //     // for (let i = 0; i < files.length; i++) {
+  //     //   promises.push(storageImage(files[i]));
+  //     // }
+  //     Promise.all(promises)
+  //       .then((urls) => {
+  //         setFormData({
+  //           ...formData,
+  //           imageUrls: formData.imageUrls.concat(urls),
+  //         });
+  //         setImageUploadError(false);
+  //         setUploading(false);
+  //       })
+  //       .catch((err) => {
+  //         setImageUploadError("Image upload failed (2 mb max per image)");
+  //         setUploading(false);
+  //       });
+  //   } else {
+  //     setImageUploadError("You can only upload 7 images per listing");
+  //     setUploading(false);
+  //   }
+  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (files.length > 0 && files.length + formData.imageUrls.length <= 7) {
+      setUploading(true);
+      setImageUploadError(false);
+
+      const promises = Array.from(files).map((file) => storageImage(file));
+
+      Promise.all(promises)
+        .then((urls) => {
+          setFormData((prev) => ({
+            ...prev,
+            imageUrls: [...prev.imageUrls, ...urls],
+          }));
           setUploading(false);
-        }
-      };
+        })
+        .catch((err) => {
+          console.error("Image upload failed:", err);
+          setImageUploadError("Image upload failed");
+          setUploading(false);
+        });
+    } else {
+      setImageUploadError("You can upload a maximum of 7 images");
+    }
+  };
 
   const storageImage = async (file) => {
     return new Promise((resolve, reject) => {
@@ -104,7 +133,7 @@ const UpdateListing = () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             resolve(downloadURL);
           });
-        }
+        },
       );
     });
   };
